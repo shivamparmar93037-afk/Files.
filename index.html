@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuchupuchu 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pacifico',cursive;overflow:hidden}
+
+/* Pages */
+.page{
+display:none;width:100vw;height:100vh;
+justify-content:center;align-items:center;
+flex-direction:column;text-align:center;
+padding:20px;position:relative
+}
+.active{display:flex}
+
+/* Backgrounds with designs */
+.pink{
+background:
+radial-gradient(circle at 20% 20%,#ffc1dc 15%,transparent 35%),
+radial-gradient(circle at 80% 30%,#ffb3d1 15%,transparent 35%),
+radial-gradient(circle at 50% 80%,#ffd6e8 20%,transparent 40%),
+#ffe6f0;
+}
+.yellow{
+background:
+radial-gradient(circle at 10% 10%,#fff3b0 15%,transparent 40%),
+radial-gradient(circle at 90% 20%,#ffe066 15%,transparent 40%),
+radial-gradient(circle at 50% 90%,#fff1a8 20%,transparent 45%),
+#fff6d6;
+}
+
+/* Text */
+.hand{font-family:'Great Vibes',cursive;color:#4a0033}
+.big{font-size:50px}
+.mid{font-size:34px}
+
+/* Extra floating movement */
+.floatText{animation:floatText 2s ease-in-out infinite}
+@keyframes floatText{
+0%{transform:translateY(0)}
+50%{transform:translateY(-18px)}
+100%{transform:translateY(0)}
+}
+
+/* Balloons */
+.balloon{
+width:135px;height:175px;border-radius:50%;
+background:#ff4d6d;
+animation:float 2s infinite;
+cursor:pointer;margin:20px;
+display:flex;align-items:center;justify-content:center;
+color:#4a0033;font-size:26px
+}
+.heart{
+background:#e60026;
+clip-path:polygon(50% 90%,0 40%,25% 10%,50% 25%,75% 10%,100% 40%)
+}
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-25px)}
+100%{transform:translateY(0)}
+}
+
+/* Buttons */
+.next{
+padding:16px 45px;background:#c9184a;color:#fff;
+border-radius:35px;font-size:24px;margin-top:30px;
+cursor:pointer;animation:floatText 1.8s infinite
+}
+
+/* Photos */
+.photos img{
+width:105px;height:135px;border-radius:18px;
+margin:12px;object-fit:cover;
+animation:floatText 3s infinite
+}
+
+/* Confetti */
+.confetti{
+position:fixed;top:-10px;font-size:24px;
+animation:fall 3.2s linear forwards
+}
+@keyframes fall{to{transform:translateY(120vh)}}
+</style>
+</head>
+<body>
+
+<!-- Page 1 -->
+<div class="page pink active" id="p1">
+<h1 class="hand big floatText">ye tumhare liye meri "kuchupuchu" 🌺</h1>
+<div class="balloon" onclick="boom('p2')"></div>
+<p class="mid floatText">Click on balloon 🎈</p>
+</div>
+
+<!-- Page 2 -->
+<div class="page pink" id="p2">
+<div class="photos">
+<img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg">
+</div>
+<p class="hand mid floatText">😍 Pata hai ye jo tum photos dekh rahi na ye mere Dil ki hai 😉</p>
+<div class="balloon heart" style="width:155px;height:155px" onclick="boom('p3')"></div>
+<p class="mid floatText">Click on red heart ❤️</p>
+</div>
+
+<!-- Page 3 -->
+<div class="page yellow" id="p3">
+<h2 class="mid floatText">(22/08/2025)</h2>
+<h1 class="hand big floatText">🫶🏻 tumhara meri life me aana 👀</h1>
+<img src="bouquet.png" width="210" style="animation:floatText 2.8s infinite">
+<div class="next" onclick="boom('p4')">NEXT</div>
+</div>
+
+<!-- Page 4 -->
+<div class="page pink" id="p4">
+<h2 class="hand mid floatText">A very special date 🌹 (17/09/2025)</h2>
+<h1 class="big floatText">The day when I proposed you 😍</h1>
+<p class="hand mid floatText">ye date mujhe hamesha yaad rahegi 🫶🏻😘</p>
+<div class="next" onclick="boom('p5')">NEXT</div>
+</div>
+
+<!-- Final -->
+<div class="page yellow" id="p5">
+<div id="balloons"></div>
+</div>
+
+<script>
+function show(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function confetti(){
+for(let i=0;i<50;i++){
+let c=document.createElement('div');
+c.className='confetti';
+c.innerText=['🎉','💖','🌹','✨','💘','❤️'][Math.floor(Math.random()*6)];
+c.style.left=Math.random()*100+'vw';
+c.style.animationDuration=(2+Math.random()*2.5)+'s';
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+}
+}
+
+function boom(next){
+confetti();
+setTimeout(()=>show(next),900);
+if(next==='p5')finalBalloons();
+}
+
+function finalBalloons(){
+let words=['I','Love','You','Muss💌'];
+let box=document.getElementById('balloons');
+box.innerHTML='';
+words.forEach((w,i)=>{
+setTimeout(()=>{
+let b=document.createElement('div');
+b.className='balloon';
+b.innerText=w;
+box.appendChild(b);
+setTimeout(()=>{b.remove();confetti()},1000);
+},i*1400);
+});
+}
+</script>
+
+</body>
+</html>
